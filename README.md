@@ -61,6 +61,21 @@ See [Configuration Reference](https://vitejs.dev/config/).
 Vuetify.js - Material Component Framework for Vue
 
 √ Project name: ... tutorial-vue
+
 √ Which preset would you like to install? » Base (Vuetify, VueRouter)
+
 √ Use TypeScript? ... No / Yes
+
 √ Would you like to install dependencies with yarn, npm, or pnpm? » yarn
+
+
+
+### back end api
+
+``` bash
+
+cd backend-api/
+
+dotnet run
+
+```
