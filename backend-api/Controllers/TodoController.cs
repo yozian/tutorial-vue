@@ -59,7 +59,7 @@ public class TodoController : ControllerBase
         return todoItem;
     }
 
-    [HttpPost("update")]
+    [HttpPut("update")]
     public TodoItem UpdateTodoItem(UpdateTodoRequest request)
     {
         if (string.IsNullOrEmpty(request.Title))
@@ -85,7 +85,7 @@ public class TodoController : ControllerBase
     }
 
 
-    [HttpPost("delete/{id:guid}")]
+    [HttpDelete("delete/{id:guid}")]
     public void DeleteTodoItem(Guid id)
     {
         if (!TodoStore.ContainsKey(id))
