@@ -72,6 +72,11 @@ Vuetify.js - Material Component Framework for Vue
 
 ### back end api
 
+install  dotnet sdk 7.0
+
+https://dotnet.microsoft.com/en-us/download
+
+
 ``` bash
 
 cd backend-api/
