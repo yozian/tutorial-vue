@@ -1,14 +1,224 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>elementry</title>
+  <title>elementry</title>
 </head>
+
 <body>
+  <section>
+    1231232
+    <div id="app">
+      <span>{{message}}</span>
+
+      <button @click="changeMessage">Change Message</button>
+
+
+      <br />
+      <span>count1:{{count1}}</span>
+      <br />
+      <span>count2:{{count2}}</span>
+      <br />
+      <span v-if="isEvenNumber" :style="{'color':color }"
+        :class="{'super-man': summation > 10 }">Summary:{{summation}}</span>
+      <!-- <span v-else :style="{'color':color }" :class="{'super-man': summation > 10 }">!!!!Summary:{{summation}}</span> -->
+
+      <button @click="count1++">Count1++</button>
+      <button @click="count2++">Coutn2++</button>
+      <button @click.once="handleClick($event, count1)">SeeClickEvent</button>
+
+      <div>
+        <input type="text" v-model="message" />
+        <textarea v-model="message"></textarea>
+        <span>{{message}}</span>
+      </div>
+
+      <div>Selected: {{ selected }}</div>
+
+      <select v-model="selected" multiple>
+        <option disabled value="">Please select one</option>
+        <option>A</option>
+        <option>B</option>
+        <option>C</option>
+      </select>
+
+
+      <div>
+        <h1>Logs</h1>
+        <input type="text" v-model="text" @keydown.enter="logMessage"></input>
+        <p v-for="(item, index) in logs">
+          {{index}}, {{item.createdAt}}: {{item.text}}
+        </p>
+      </div>
+
+      <h1>Cpn</h1>
+      <button @click="removeLastLog">removeLastLog</button>
+      <v-log-cpn v-for="(item, index) in logs" :record="item" @id-clicked="handleIdCliced">
+        <span v-slot="item" style="color:blue">
+          {{item.text}}
+        </span>
+      </v-log-cpn>
+
+    </div>
+
+  </section>
+
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+  <script type="x/template" id="vue-log-message-cpn">
+    <div>
+      <span style="color:red;" @click="emitClick" >({{record.id}})</span>
+      <strong>{{createdAt}}</strong>:
+      <slot :item="record">
+        <span>{{record.text}}</span>
+      </slot>
+    </div>
+  </script>
+
+  <script>
+    var app = Vue.createApp({
+      data()
+      {
+        return {
+          message: 'Hello Vue!123',
+          count1: 0,
+          count2: 2,
+          selected: ['B'],
+          //
+          text: '',
+          logs: [{
+            id: 0,
+            text: '',
+            createdAt: new Date()
+          }]
+        }
+      },
+      computed: {
+        summation()
+        {
+          return this.count1 + this.count2;
+        },
+        color()
+        {
+          return this.summation > 10 ? 'red' : 'blue';
+        },
+        isEvenNumber()
+        {
+          return this.summation % 2 === 0;
+        }
+      },
+      methods: {
+        changeMessage()
+        {
+          this.message = 'Hello World!' + new Date().toLocaleString();
+        },
+        handleClick(e, val)
+        {
+          console.log("click event:", e, val);
+        },
+        // logs
+        logMessage(e)
+        {
+          this.logs.push({
+            id: new Date().getTime(),
+            text: this.text,
+            createdAt: new Date()
+          })
+        },
+        removeLastLog()
+        {
+          this.logs.pop();
+        },
+        handleIdCliced(e)
+        {
+          console.log("handleIdCliced:", e);
+        }
+      },
+      created()
+      {
+        console.log('created');
+        setTimeout(() =>
+        {
+          console.log("timeout!");
+        }, 3000);
+      },
+      mounted()
+      {
+        console.log('mounted');
+      },
+      beforeUpdate()
+      {
+        console.log('beforeUpdate');
+      },
+      updated()
+      {
+        console.log('updated');
+      },
+      beforeUnmount()
+      {
+        console.log('beforeUnmount');
+      },
+      unmounted()
+      {
+        console.log('unmounted');
+      }
+    })
+
+    app.component("v-log-cpn", {
+      template: "#vue-log-message-cpn",
+      props: ["record"],
+      computed: {
+        createdAt()
+        {
+          return this.record.createdAt.toJSON();
+        }
+      },
+      methods: {
+        emitClick: function ()
+        {
+          this.$emit("idClicked", this.record);
+        }
+      },
+      created()
+      {
+        console.log('log-cpn:created');
+      },
+      mounted()
+      {
+
+        console.log('log-cpn:mounted');
+      },
+      beforeUpdate()
+      {
+        console.log('log-cpn:beforeUpdate');
+      },
+      updated()
+      {
+        console.log('log-cpn:updated');
+      },
+      beforeUnmount()
+      {
+
+        console.log('log-cpn:beforeUnmount');
+      },
+      unmounted()
+      {
+        console.log('log-cpn:unmounted');
+      }
+
+    })
 
 
 
-<script>
-  
-</script>
+    app.mount('#app');
+
+  </script>
+  <style>
+    .super-man {
+      font-size: 30px;
+    }
+  </style>
 </body>
+
 </html>
