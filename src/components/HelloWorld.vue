@@ -65,6 +65,13 @@
             Community
           </v-btn>
         </v-col>
+        <v-col cols="auto">
+          <v-btn to="todo" min-width="164" rel="noopener noreferrer"
+            variant="text">
+            <v-icon icon="mdi-view-dashboard" size="large" start />
+            Todo App
+          </v-btn>
+        </v-col>
       </v-row>
     </v-responsive>
   </v-container>
