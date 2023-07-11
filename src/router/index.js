@@ -24,13 +24,19 @@ const routes = [
   },
   {
         path: '/todo',
-        name: 'Todo',
+        name: 'TodoLayout',
         component: () => import('@/layouts/main/MainLayout.vue'),
         children: [
           {
           path: '/todo',
           name: 'Todo',
           component: () => import(/* webpackChunkName: "home" */ '@/views/Todo.vue'),
+        },
+        {
+          path: '/todo/:id',
+          name: 'TodoEdit',
+          component: () => import(/* webpackChunkName: "home" */ '@/views/TodoEdit.vue'),
+          props:true
         },
         ]
       },
